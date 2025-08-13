@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Regular-BF659b6cb1d4714.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Medium-BF659b6cb1c14cb.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Bold-BF659b6cb1408e5.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>Product Page</title>
+		<script type="module" crossorigin="" src="./js/product.min.js?v=1755079516873"></script>
+		<link rel="modulepreload" crossorigin="" href="./js/app.min.js?v=1755079516873">
+		<link rel="modulepreload" crossorigin="" href="./js/input.min.js?v=1755079516873">
+		<link rel="modulepreload" crossorigin="" href="./js/unimodal.min.js?v=1755079516873">
+		<link rel="modulepreload" crossorigin="" href="./js/swiper-core.min.js?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/input.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/unimodal.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/product.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/breadcrumbs.min.css?v=1755079516873">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header="" class="header">
+				<div class="header__container">
+					<div class="header__body">
+						<a href="index.html" class="header__link-logo">
+							<img class="header__logo" src="./assets/img/logo.svg" alt="logo">
+						</a>
+						<div class="header__menu menu">
+							<button type="button" data-fls-menu="" class="menu__icon icon-menu" aria-label="Відкрити меню" aria-expanded="false" aria-controls="menu-body">
+								<span></span>
+							</button>
+							<nav class="menu__body" id="menu-body" role="navigation" aria-label="Головне меню">
+								<ul class="menu__list">
+									<li class="menu__item">
+										<a href="/product" class="menu__link menu__link--active" aria-current="page">Product</a>
+									</li>
+									<li class="menu__item">
+										<a href="/services" class="menu__link">Services</a>
+									</li>
+									<li class="menu__item">
+										<a href="/articles" class="menu__link">Articles</a>
+									</li>
+									<li class="menu__item">
+										<a href="/about" class="menu__link">About Us</a>
+									</li>
+									<li class="menu__item menu__item--mobile-actions">
+										<ul class="mobile-actions">
+											<li class="mobile-actions__item" onclick="openCart()" title="Cart">
+												<a href="#" class="mobile-actions__link --icon-cart"></a>
+											</li>
+											<li class="mobile-actions__item" onclick="openProfile()" title="Profile">
+												<a href="#" class="mobile-actions__link --icon-user"></a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<!--
+<fetch url="@components/layout/menu/menu.js?v=1755079516873on">
+<each loop='item in response'>
+</each>
+</fetch>
+-->
+						<ul class="header__actions user-actions header-icons">
+							<li class="user-actions__item" onclick="openCart()" title="Cart">
+								<span class="cart-count" id="cartCount">0</span>
+								<a href="#" class="user-actions__link --icon-cart"></a>
+							</li>
+							<li class="user-actions__item" onclick="openProfile()" title="Profile">
+								<a href="#" class="user-actions__link --icon-user"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+			<!-- Cart Modal -->
+			<div id="cartModal" class="cart-modal">
+				<div class="cart-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Your Cart</h3>
+						<button class="modal-close" onclick="closeCart()" aria-label="Close cart">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="cart-body">
+						<div id="cartItems" class="cart-items"></div>
+						<div class="cart-footer">
+							<div class="cart-total" id="cartTotal">Total: $0</div>
+							<div class="cart-actions">
+								<button class="checkout-btn" onclick="checkout()">
+									<svg width="20" height="20" viewbox="0 0 20 20" fill="none">
+										<path d="M16.25 6.25L8.75 13.75L3.75 8.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+									Proceed to Checkout
+								</button>
+								<button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Profile Modal -->
+			<div id="profileModal" class="profile-modal">
+				<div class="profile-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Profile</h3>
+						<button class="modal-close" onclick="closeProfile()" aria-label="Close profile">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="profile-body">
+						<div class="user-info">
+							<div class="user-avatar">
+								<svg width="48" height="48" viewbox="0 0 24 24" fill="none">
+									<path d="M20 21V19C20 16.8 18.2 15 16 15H8C5.8 15 4 16.8 4 19V21M16 7C16 9.2 14.2 11 12 11S8 9.2 8 7 9.8 3 12 3 16 4.8 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<div class="user-details">
+								<h4>John Doe</h4>
+								<p>john.doe@example.com</p>
+							</div>
+						</div>
+						<ul class="profile-menu">
+							<li onclick="navigateToAccount()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M10 9C12.21 9 14 7.21 14 5S12.21 1 10 1 6 2.79 6 5 7.79 9 10 9ZM10 11C6.67 11 1 12.67 1 16V19H19V16C19 12.67 13.33 11 10 11Z" fill="currentColor"></path>
+								</svg>
+								Personal Account
+							</li>
+							<li onclick="showOrderHistory()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M16 2H4C3.45 2 3 2.45 3 3V17C3 17.55 3.45 18 4 18H16C16.55 18 17 17.55 17 17V3C17 2.45 16.55 2 16 2ZM15 16H5V4H15V16ZM7 6H13V8H7V6ZM7 10H13V12H7V10Z" fill="currentColor"></path>
+								</svg>
+								My Orders
+							</li>
+							<li onclick="showSettings()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M15.95 10.78C15.03 11.95 14.68 13.45 14.95 14.9C14.63 15.05 14.3 15.18 13.95 15.28C13.59 13.87 12.47 12.76 11.06 12.4C10.07 11.42 8.64 11 7.14 11.28C6.32 10.91 5.46 10.7 4.58 10.68C4.58 10.45 4.6 10.23 4.64 10C4.6 9.77 4.58 9.55 4.58 9.32C5.46 9.3 6.32 9.09 7.14 8.72C8.64 9 10.07 8.58 11.06 7.6C12.47 7.24 13.59 6.13 13.95 4.72C14.3 4.82 14.63 4.95 14.95 5.1C14.68 6.55 15.03 8.05 15.95 9.22C16.77 9.59 17.51 10.09 18.14 10.68C17.51 11.27 16.77 11.77 15.95 11.14V10.78ZM10 14C8.9 14 8 13.1 8 12S8.9 10 10 10 12 10.9 12 12 11.1 14 10 14Z" fill="currentColor"></path>
+								</svg>
+								Settings
+							</li>
+							<li onclick="showWishlist()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M10 17.5L8.95 16.55C4.5 12.6 1.5 9.9 1.5 6.5C1.5 4.24 3.24 2.5 5.5 2.5C6.74 2.5 7.93 3.09 8.71 4H11.29C12.07 3.09 13.26 2.5 14.5 2.5C16.76 2.5 18.5 4.24 18.5 6.5C18.5 9.9 15.5 12.6 11.05 16.55L10 17.5Z" fill="currentColor"></path>
+								</svg>
+								Wishlist
+							</li>
+							<li onclick="logout()" class="logout-item">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M3 3V17C3 17.55 3.45 18 4 18H9V16H5V4H9V2H4C3.45 2 3 2.45 3 3ZM15.5 9L13.09 6.59L14.5 5.18L19.32 10L14.5 14.82L13.09 13.41L15.5 11H7V9H15.5Z" fill="currentColor"></path>
+								</svg>
+								Log Out
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<section class="page__product product">
+				<div class="product__container">
+					<ul data-fls-breadcrumbs="" class="breadcrumbs">
+						<li class="breadcrumbs__item">
+							<a href="index.html" class="breadcrumbs__link">Homepage</a>
+						</li>
+						<li class="breadcrumbs__item">
+							<a class="breadcrumbs__link">Product</a>
+						</li>
+					</ul>
+					<div class="product__blockhead">
+						<h1 class="main__title">Products</h1>
+						<div class="product__text text">
+							<p>
+								We display products based on the latest products we have, if you want
+          to see our old products please enter the name of the item
+							</p>
+						</div>
+					</div>
+					<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css?v=1755079516873">
+					<div data-fls-sliderprod="" class="swiper product-slider">
+						<button type="button" class="slider-nav__btn slider-btn product-prev">
+							<img class="slider-btn__arrow" src="./assets/img/left-arrow.svg" alt="arrow">
+						</button>
+						<button type="button" class="slider-nav__btn slider-btn product-next">
+							<img class="slider-btn__arrow" src="./assets/img/right-arrow.svg" alt="arrow">
+						</button>
+						<div class="swiper-pagination product__pag"></div>
+						<div class="swiper-wrapper">
+							<div class="swiper-slide product-slide product-slide--1">
+								<div class="container">
+									<div class="product__content">
+										<button data-fls-unimodal="" data-fls-button="" type="submit" onclick="openModal(event)" class="button-product button">Discount</button>
+										<h2 class="title product__title">Ramadhan Sale Offer</h2>
+										<p class="product__hero-descr text">Get 40% off for the first transaction on Lalasia</p>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide product-slide product-slide--2">
+								<div class="container">
+									<div class="product__content">
+										<button data-fls-button="" type="submit" class="button-product button">Discount</button>
+										<h2 class="title product__title">Ramadhan Sale Offer</h2>
+										<p class="product__hero-descr text">Get 40% off for the first transaction on Lalasia</p>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide product-slide product-slide--3">
+								<div class="container">
+									<div class="product__content">
+										<button data-fls-button="" type="submit" class="button-product button">Discount</button>
+										<h2 class="title product__title">Ramadhan Sale Offer</h2>
+										<p class="product__hero-descr text">Get 40% off for the first transaction on Lalasia</p>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide product-slide product-slide--4">
+								<div class="container">
+									<div class="product__content">
+										<button data-fls-button="" type="submit" class="button-product button">Discount</button>
+										<h2 class="title product__title">Ramadhan Sale Offer</h2>
+										<p class="product__hero-descr text">Get 40% off for the first transaction on Lalasia</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div data-fls-unimodal="" class="modal-overlay" id="modalOverlay" hidden onclick="closeModal(event)">
+						<div class="modal">
+							<div class="modal-header">
+								<h3 id="modalTitle">Get in Touch</h3>
+								<p id="modalSubtitle">We'd love to help you</p>
+								<button class="modal-close" onclick="closeModal()">&times;</button>
+							</div>
+							<div class="modal-body">
+								<form id="contactForm">
+									<div class="form-group">
+										<label for="name">Name *</label>
+										<input type="text" id="name" name="name" required>
+									</div>
+									<div class="form-group">
+										<label for="email">Email *</label>
+										<input type="email" id="email" name="email" required>
+									</div>
+									<div class="form-group">
+										<label for="phone">Phone</label>
+										<input type="tel" id="phone" name="phone">
+									</div>
+									<div class="form-group" id="messageGroup">
+										<label for="message">Message</label>
+										<textarea id="message" name="message" placeholder="Tell us more about your needs..."></textarea>
+									</div>
+									<div class="modal-actions">
+										<button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+										<button type="submit" class="btn btn-primary" id="submitBtn">Send</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<script></script>
+					<script src="https://unpkg.com/swiper/swiper-bundle.min.js?v=1755079516873"></script>
+					<script>
+            var swiper = new Swiper(".product-slider", {
+              pagination: {
+                el: ".product__pag",
+                clickable: true,
+              },
+              navigation: {
+                nextEl: ".product-next",
+                prevEl: ".product-prev",
+              },
+              loop: true,
+              autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+              },
+            });
+					</script>
+				</div>
+			</section>
+			<section class="product-grid">
+				<div class="product__container">
+					<div class="product-grid__search">
+						<form class="search-form search-form--product">
+							<div class="search-form__items">
+								<label class="search-form__field">
+									<input data-fls-input="" id="searchInput" autocomplete="off" type="text" name="search" data-error="Помилка" placeholder="Search property" minlength="3" maxlength="80" pattern="[A-Za-zА-Яа-я0-9\s\-]+" class="search-form__input">
+								</label>
+								<button data-fls-button="" type="submit" class="search-form__button">Search</button>
+							</div>
+						</form>
+						<div class="filter-container">
+							<button class="product-grid__filter-btn --icon-filter filter-text" id="filterBtn">Filter</button>
+							<!-- Filter Panel -->
+							<div class="filter-panel" id="filterPanel">
+								<div class="filter-group">
+									<h4>Category</h4>
+									<div class="filter-options">
+										<div class="filter-option">
+											<label for="chair">Chair</label>
+											<input type="checkbox" id="chair" value="Chair">
+										</div>
+										<div class="filter-option">
+											<label for="table">Table</label>
+											<input type="checkbox" id="table" value="Table">
+										</div>
+										<div class="filter-option">
+											<label for="cupboard">Cupboard</label>
+											<input type="checkbox" id="cupboard" value="Cupboard">
+										</div>
+										<div class="filter-option">
+											<label for="decoration">Decoration</label>
+											<input type="checkbox" id="decoration" value="Decoration">
+										</div>
+									</div>
+								</div>
+								<div class="filter-group">
+									<h4>Price Range</h4>
+									<div class="filter-options">
+										<div class="filter-option">
+											<label for="under50">Under $50</label>
+											<input type="checkbox" id="under50" value="under50">
+										</div>
+										<div class="filter-option">
+											<label for="50to100">$50 - $100</label>
+											<input type="checkbox" id="50to100" value="50to100">
+										</div>
+										<div class="filter-option">
+											<label for="over100">Over $100</label>
+											<input type="checkbox" id="over100" value="over100">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-grid__controls" id="total-product">
+						<div class="product-grid__total">
+							<h2 class="title title--product">Total Product</h2>
+							<span id="totalCount">0</span>
+						</div>
+						<div class="sort-container">
+							<button class="product-grid__sort-btn --icon-sort sort-text" id="sortBtn">Sort By</button>
+							<!-- Sort Panel -->
+							<div class="sort-panel" id="sortPanel">
+								<div class="sort-option" data-sort="name">Name (A-Z)</div>
+								<div class="sort-option" data-sort="price-low">Price: Low to High</div>
+								<div class="sort-option" data-sort="price-high">Price: High to Low</div>
+								<div class="sort-option active" data-sort="default">Default</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-grid__items" id="productItems">
+						<!-- Картка 1 -->
+						<!--
+<article
+class="product-item"
+data-id="1"
+data-category="Chair"
+data-price="63.47"
+data-name="White Aesthetic Chair"
+data-description="Combination of wood and wool"
+data-slug="white-aesthetic-chair"
+>
+<a href="./white-chair.html" class="product-item__link">
+<div class="product-item__image-wrapper">
+<picture><img class="product-item__image-grid" alt="White Aesthetic Chair" width="394" height="360" loading="lazy"  src="./assets/img/pageproduct/total-product-1.webp" ></picture>
+</div>
+<div class="product-item__content">
+<h5 class="product-item__label text">Chair</h5>
+<h3 class="product-item__title">White Aesthetic Chair</h3>
+<p class="product-item__descr text">Combination of wood and wool</p>
+<h3 class="product-item__price">$63.47</h3>
+</div>
+</a>
+</article>
+-->
+						<!-- Картка 2 -->
+						<!--
+<article
+class="product-item"
+data-id="2"
+data-category="Cupboard"
+data-price="79.88"
+data-name="Wooden Cupboard 3 Row"
+data-description="Combination of wood"
+data-slug="wooden-cupboard-3-row"
+>
+<a href="./white-chair.html" class="product-item__link">
+<div class="product-item__image-wrapper">
+<picture><img class="product-item__image-grid" alt="Wooden Cupboard 3 Row" width="394" height="360" loading="lazy"  src="./assets/img/pageproduct/total-product-2.webp" ></picture>
+</div>
+<div class="product-item__content">
+<h5 class="product-item__label text">Cupboard</h5>
+<h3 class="product-item__title">Wooden Cupboard 3 Row</h3>
+<p class="product-item__descr text">Combination of wood</p>
+<h3 class="product-item__price">$79.88</h3>
+</div>
+</a>
+</article>
+-->
+						<!-- Картка 3 -->
+						<article class="product-item" data-id="3" data-category="Chair" data-price="14.74" data-name="Minimalist Lounge Chair" data-description="Combination of wood and wool" data-slug="minimalist-lounge-chair">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="Minimalist Lounge Chair" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-3.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Chair</h5>
+									<h3 class="product-item__title">Minimalist Lounge Chair</h3>
+									<p class="product-item__descr text">Combination of wood and wool</p>
+									<h3 class="product-item__price">$14.74</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 4 -->
+						<article class="product-item" data-id="4" data-category="Table" data-price="47.90" data-name="Working Desk Setup" data-description="Combination of wood" data-slug="working-desk-setup">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="Working Desk Setup" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-4.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Table</h5>
+									<h3 class="product-item__title">Working Desk Setup</h3>
+									<p class="product-item__descr text">Combination of wood</p>
+									<h3 class="product-item__price">$47.90</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 5 -->
+						<article class="product-item" data-id="5" data-category="Cupboard" data-price="40.73" data-name="Minimalist White Cupboard" data-description="Combination of clayware" data-slug="minimalist-white-cupboard">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="Minimalist White Cupboard" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-5.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Cupboard</h5>
+									<h3 class="product-item__title">Minimalist White Cupboard</h3>
+									<p class="product-item__descr text">Combination of wood</p>
+									<h3 class="product-item__price">$40.73</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 6 -->
+						<article class="product-item" data-id="6" data-category="Table" data-price="16.50" data-name="Wooden Dining Table" data-description="Combination of wood" data-slug="wooden-dining-table">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="Wooden Dining Table" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-6.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Table</h5>
+									<h3 class="product-item__title">Wooden Dining Table</h3>
+									<p class="product-item__descr text">Combination of wood</p>
+									<h3 class="product-item__price">$16.50</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 7 -->
+						<article class="product-item" data-id="7" data-category="Decoration" data-price="58.39" data-name="White Minimalist Vase" data-description="Combination of clayware" data-slug="white-minimalist-vase">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="White Minimalist Vase" width="394" height="360" loading="lazy" src="./assets/img/White-chair/related-1.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Decoration</h5>
+									<h3 class="product-item__title">White Minimalist Vase</h3>
+									<p class="product-item__descr text">Combination of claywared</p>
+									<h3 class="product-item__price">$58.39</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 8 -->
+						<article class="product-item" data-id="8" data-category="Decoration" data-price="61.49" data-name="Plant With Clay Stand" data-description="Combination of clayware" data-slug="plant-with-clay-stand">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="Plant With Clay Stand" width="394" height="360" loading="lazy" src="./assets/img/White-chair/related-2.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Decoration</h5>
+									<h3 class="product-item__title">Plant With Clay Stand</h3>
+									<p class="product-item__descr text">Combination of clayware</p>
+									<h3 class="product-item__price">$61.49</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 9 -->
+						<article class="product-item" data-id="9" data-category="Decoration" data-price="32.43" data-name="Oval Gold Mirror" data-description="Combination of wood and glass" data-slug="oval-gold-mirror">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<img class="product-item__image-grid" alt="Oval Gold Mirror" width="394" height="360" loading="lazy" src="./assets/img/White-chair/related-3.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Decoration</h5>
+									<h3 class="product-item__title">Oval Gold Mirror</h3>
+									<p class="product-item__descr text">Combination of wood and glass</p>
+									<h3 class="product-item__price">$32.43</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 10 -->
+						<article class="product-item" data-id="10" data-category="Decoration" data-price="32.43" data-name="White Minimalist Vase" data-description="Combination of clayware" data-slug="white-minimalist-vase">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/pageproduct/total-product-10-600.webp" type="image/webp">
+										<img class="product-item__image-grid" alt="Oval Gold Mirror" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-10.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Decoration</h5>
+									<h3 class="product-item__title">White Minimalist Vase</h3>
+									<p class="product-item__descr text">Combination of clayware</p>
+									<h3 class="product-item__price">$32.43</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка11 -->
+						<article class="product-item" data-id="11" data-category="Decoration" data-price="32.43" data-name="White Minimalist Vase" data-description="Combination of clayware" data-slug="white-minimalist-vase">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/pageproduct/total-product-11-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/pageproduct/total-product-11-1200.webp" type="image/webp">
+										<img class="product-item__image-grid" alt="Oval Gold Mirror" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-11.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Decoration</h5>
+									<h3 class="product-item__title">White Minimalist Vase</h3>
+									<p class="product-item__descr text">Combination of clayware</p>
+									<h3 class="product-item__price">$32.43</h3>
+								</div>
+							</a>
+						</article>
+						<!-- Картка 12 -->
+						<article class="product-item" data-id="12" data-category="Decoration" data-price="32.43" data-name="Oval Gold Mirror" data-description="Combination of wood and glass" data-slug="oval-gold-mirror">
+							<a href="./white-chair.html" class="product-item__link">
+								<div class="product-item__image-wrapper">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/pageproduct/total-product-12-600.webp" type="image/webp">
+										<img class="product-item__image-grid" alt="Oval Gold Mirror" width="394" height="360" loading="lazy" src="./assets/img/pageproduct/total-product-12.webp">
+									</picture>
+								</div>
+								<div class="product-item__content">
+									<h5 class="product-item__label text">Decoration</h5>
+									<h3 class="product-item__title">Oval Gold Mirror</h3>
+									<p class="product-item__descr text">Combination of wood and glass</p>
+									<h3 class="product-item__price">$32.43</h3>
+								</div>
+							</a>
+						</article>
+					</div>
+					<div class="product-grid__pagination" id="pagination">
+						<button class="pagination-btn --icon-left-arrow-product" id="prevBtn"></button>
+						<span class="pagination-current" id="currentPage">1</span>
+						<span class="pagination-ellipsis --icon-dots"></span>
+						<span class="pagination-number" id="totalPages">2</span>
+						<button class="pagination-btn --icon-right-arrow-product" id="nextBtn"></button>
+					</div>
+				</div>
+			</section>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container">
+					<div class="footer__content">
+						<div class="footer__body">
+							<div class="footer__info">
+								<div class="footer__logo">
+									<img src="./assets/img/logo.svg" alt="Logo">
+								</div>
+								<div class="footer__text text">
+									<p>
+										Lalasia is digital agency that help you make better experience
+              iaculis cras in.
+									</p>
+								</div>
+							</div>
+							<div class="footer__menu menu-footer">
+								<div data-fls-spollers="" class="spollers">
+									<details class="spollers__item">
+										<summary class="spollers__title">Product</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">New Arrivals</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Best Selling</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Home Decor</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Kitchen Set</a>
+											</li>
+										</ul>
+									</details>
+									<details class="spollers__item">
+										<summary class="spollers__title">Services</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Catalog</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Blog</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">FaQ</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Pricing</a>
+											</li>
+										</ul>
+									</details>
+									<details class="spollers__item">
+										<summary class="spollers__title">Follow Us</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Facebook</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Instagram</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Twitter</a>
+											</li>
+										</ul>
+									</details>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

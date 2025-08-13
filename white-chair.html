@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Regular-BF659b6cb1d4714.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Medium-BF659b6cb1c14cb.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Bold-BF659b6cb1408e5.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>White-chair Page</title>
+		<script type="module" crossorigin="" src="./js/white-chair.min.js?v=1755079516873"></script>
+		<link rel="modulepreload" crossorigin="" href="./js/app.min.js?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/white-chair.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/breadcrumbs.min.css?v=1755079516873">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header="" class="header">
+				<div class="header__container">
+					<div class="header__body">
+						<a href="index.html" class="header__link-logo">
+							<img class="header__logo" src="./assets/img/logo.svg" alt="logo">
+						</a>
+						<div class="header__menu menu">
+							<button type="button" data-fls-menu="" class="menu__icon icon-menu" aria-label="Відкрити меню" aria-expanded="false" aria-controls="menu-body">
+								<span></span>
+							</button>
+							<nav class="menu__body" id="menu-body" role="navigation" aria-label="Головне меню">
+								<ul class="menu__list">
+									<li class="menu__item">
+										<a href="/product" class="menu__link">Product</a>
+									</li>
+									<li class="menu__item">
+										<a href="/services" class="menu__link">Services</a>
+									</li>
+									<li class="menu__item">
+										<a href="/articles" class="menu__link">Articles</a>
+									</li>
+									<li class="menu__item">
+										<a href="/about" class="menu__link">About Us</a>
+									</li>
+									<li class="menu__item menu__item--mobile-actions">
+										<ul class="mobile-actions">
+											<li class="mobile-actions__item" onclick="openCart()" title="Cart">
+												<a href="#" class="mobile-actions__link --icon-cart"></a>
+											</li>
+											<li class="mobile-actions__item" onclick="openProfile()" title="Profile">
+												<a href="#" class="mobile-actions__link --icon-user"></a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<!--
+<fetch url="@components/layout/menu/menu.js?v=1755079516873on">
+<each loop='item in response'>
+</each>
+</fetch>
+-->
+						<ul class="header__actions user-actions header-icons">
+							<li class="user-actions__item" onclick="openCart()" title="Cart">
+								<span class="cart-count" id="cartCount">0</span>
+								<a href="#" class="user-actions__link --icon-cart"></a>
+							</li>
+							<li class="user-actions__item" onclick="openProfile()" title="Profile">
+								<a href="#" class="user-actions__link --icon-user"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+			<!-- Cart Modal -->
+			<div id="cartModal" class="cart-modal">
+				<div class="cart-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Your Cart</h3>
+						<button class="modal-close" onclick="closeCart()" aria-label="Close cart">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="cart-body">
+						<div id="cartItems" class="cart-items"></div>
+						<div class="cart-footer">
+							<div class="cart-total" id="cartTotal">Total: $0</div>
+							<div class="cart-actions">
+								<button class="checkout-btn" onclick="checkout()">
+									<svg width="20" height="20" viewbox="0 0 20 20" fill="none">
+										<path d="M16.25 6.25L8.75 13.75L3.75 8.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+									Proceed to Checkout
+								</button>
+								<button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Profile Modal -->
+			<div id="profileModal" class="profile-modal">
+				<div class="profile-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Profile</h3>
+						<button class="modal-close" onclick="closeProfile()" aria-label="Close profile">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="profile-body">
+						<div class="user-info">
+							<div class="user-avatar">
+								<svg width="48" height="48" viewbox="0 0 24 24" fill="none">
+									<path d="M20 21V19C20 16.8 18.2 15 16 15H8C5.8 15 4 16.8 4 19V21M16 7C16 9.2 14.2 11 12 11S8 9.2 8 7 9.8 3 12 3 16 4.8 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<div class="user-details">
+								<h4>John Doe</h4>
+								<p>john.doe@example.com</p>
+							</div>
+						</div>
+						<ul class="profile-menu">
+							<li onclick="navigateToAccount()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M10 9C12.21 9 14 7.21 14 5S12.21 1 10 1 6 2.79 6 5 7.79 9 10 9ZM10 11C6.67 11 1 12.67 1 16V19H19V16C19 12.67 13.33 11 10 11Z" fill="currentColor"></path>
+								</svg>
+								Personal Account
+							</li>
+							<li onclick="showOrderHistory()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M16 2H4C3.45 2 3 2.45 3 3V17C3 17.55 3.45 18 4 18H16C16.55 18 17 17.55 17 17V3C17 2.45 16.55 2 16 2ZM15 16H5V4H15V16ZM7 6H13V8H7V6ZM7 10H13V12H7V10Z" fill="currentColor"></path>
+								</svg>
+								My Orders
+							</li>
+							<li onclick="showSettings()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M15.95 10.78C15.03 11.95 14.68 13.45 14.95 14.9C14.63 15.05 14.3 15.18 13.95 15.28C13.59 13.87 12.47 12.76 11.06 12.4C10.07 11.42 8.64 11 7.14 11.28C6.32 10.91 5.46 10.7 4.58 10.68C4.58 10.45 4.6 10.23 4.64 10C4.6 9.77 4.58 9.55 4.58 9.32C5.46 9.3 6.32 9.09 7.14 8.72C8.64 9 10.07 8.58 11.06 7.6C12.47 7.24 13.59 6.13 13.95 4.72C14.3 4.82 14.63 4.95 14.95 5.1C14.68 6.55 15.03 8.05 15.95 9.22C16.77 9.59 17.51 10.09 18.14 10.68C17.51 11.27 16.77 11.77 15.95 11.14V10.78ZM10 14C8.9 14 8 13.1 8 12S8.9 10 10 10 12 10.9 12 12 11.1 14 10 14Z" fill="currentColor"></path>
+								</svg>
+								Settings
+							</li>
+							<li onclick="showWishlist()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M10 17.5L8.95 16.55C4.5 12.6 1.5 9.9 1.5 6.5C1.5 4.24 3.24 2.5 5.5 2.5C6.74 2.5 7.93 3.09 8.71 4H11.29C12.07 3.09 13.26 2.5 14.5 2.5C16.76 2.5 18.5 4.24 18.5 6.5C18.5 9.9 15.5 12.6 11.05 16.55L10 17.5Z" fill="currentColor"></path>
+								</svg>
+								Wishlist
+							</li>
+							<li onclick="logout()" class="logout-item">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M3 3V17C3 17.55 3.45 18 4 18H9V16H5V4H9V2H4C3.45 2 3 2.45 3 3ZM15.5 9L13.09 6.59L14.5 5.18L19.32 10L14.5 14.82L13.09 13.41L15.5 11H7V9H15.5Z" fill="currentColor"></path>
+								</svg>
+								Log Out
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<section data-fls-white-chair="" class="product-section">
+				<div class="product-section__container">
+					<ul data-fls-breadcrumbs="" class="breadcrumbs product-section__breadcrumbs">
+						<li class="breadcrumbs__item">
+							<a href="index.html" class="breadcrumbs__link">Homepage</a>
+						</li>
+						<li class="breadcrumbs__item">
+							<a href="product.html" class="breadcrumbs__link">Product</a>
+						</li>
+						<li class="breadcrumbs__item">
+							<a class="breadcrumbs__link">White Chair</a>
+						</li>
+					</ul>
+					<div class="product-section__item">
+						<div class="product-gallery">
+							<picture>
+								<img width="600" height="600" alt="White Aesthetic Chair" src="./assets/img/White-chair/white-chair.webp">
+							</picture>
+						</div>
+						<div class="product-info">
+							<h2 class="product-title title">White Aesthetic Chair</h2>
+							<p class="text">Combination of wood and wool</p>
+							<div class="color-options">
+								<div class="option-title subtitle">Color</div>
+								<div class="color-swatches">
+									<div class="color-swatch black active" data-color="black" title="Black"></div>
+									<div class="color-swatch charcoal" data-color="charcoal" title="Charcoal"></div>
+									<div class="color-swatch goldenrod" data-color="goldenrod" title="Goldenrod"></div>
+									<div class="color-swatch silver" data-color="silver" title="Silver"></div>
+								</div>
+							</div>
+							<p class="product-description text">
+								Combination of wood and wool that is very comfortable when used. Many
+          people like it because the design is very aesthetic and perfect for
+          your home. This chair combines functionality with style, making it an
+          ideal choice for any modern living space.
+							</p>
+							<div class="product-pricing">
+								<h2 class="product-price title">$99.98</h2>
+							</div>
+							<div class="product-actions">
+								<div class="buttons-actions">
+									<button data-fls-button="" class="buy-now button btn" onclick="buyNow()">Buy Now</button>
+									<button data-fls-button="" data-fls-addtocart-button="" class="add-to-cart button" onclick="addToCart()">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div data-fls-buynow="" id="buyNowModal" class="buy-modal">
+				<div class="buy-modal__overlay" onclick="closeBuyNowModal()"></div>
+				<div class="buy-modal__content">
+					<button class="buy-modal__close" onclick="closeBuyNowModal()">&times;</button>
+					<h3 class="title">Quick Purchase</h3>
+					<div class="buy-modal__product">
+						<img id="buyModalImage" src="#" alt="" width="120" height="120">
+						<div class="buy-modal__info">
+							<h4 class="product-item__title" id="buyModalName"></h4>
+							<p class="subtitle" id="buyModalColor"></p>
+							<p id="buyModalPrice" class="buy-modal__price text"></p>
+						</div>
+					</div>
+					<form class="buy-form" onsubmit="processBuyNow(event)">
+						<div class="form-group">
+							<label for="buyerName">Full Name:</label>
+							<input type="text" id="buyerName" name="buyerName" required>
+						</div>
+						<div class="form-group">
+							<label for="buyerPhone">Phone:</label>
+							<input type="tel" id="buyerPhone" name="buyerPhone" required>
+						</div>
+						<div class="form-group">
+							<label for="buyerAddress">Delivery Address:</label>
+							<textarea id="buyerAddress" name="buyerAddress" required rows="3"></textarea>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="confirm-buy-btn" id="confirmBuyBtn">Confirm Purchase</button>
+							<button type="button" onclick="closeBuyNowModal()" class="cancel-btn">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<section class="related-section">
+				<div class="related__container">
+					<h2 class="section-title title">Related Items</h2>
+					<div class="related-grid">
+						<div class="related-item">
+							<div class="product-item__image-wrapper">
+								<picture>
+									<img class="product-item__image" width="394" height="360" loading="lazy" src="./assets/img/White-chair/related-1.webp">
+								</picture>
+							</div>
+							<div class="product-item__content">
+								<h5 class="product-item__label text">Decoration</h5>
+								<h3 class="product-item__title subtitle">Wooden Aesthetic Chair</h3>
+								<p class="product-item__descr text">Combination of wood</p>
+								<h3 class="product-item__price subtitle">$58.39</h3>
+							</div>
+						</div>
+						<div class="related-item">
+							<div class="product-item__image-wrapper">
+								<picture>
+									<img class="product-item__image" width="394" height="360" loading="lazy" src="./assets/img/White-chair/related-2.webp">
+								</picture>
+							</div>
+							<div class="product-item__content">
+								<h5 class="product-item__label text">Decoration</h5>
+								<h3 class="product-item__title subtitle">Plant With Clay Stand</h3>
+								<p class="product-item__descr text">Combination of wood</p>
+								<h3 class="product-item__price subtitle">$61.49</h3>
+							</div>
+						</div>
+						<div class="related-item">
+							<div class="product-item__image-wrapper">
+								<picture>
+									<img class="product-item__image" width="394" height="360" loading="lazy" src="./assets/img/White-chair/related-3.webp">
+								</picture>
+							</div>
+							<div class="product-item__content">
+								<h5 class="product-item__label text">Decoration</h5>
+								<h3 class="product-item__title subtitle">Oval Gold Mirror</h3>
+								<p class="product-item__descr text">Combination of wood</p>
+								<h3 class="product-item__price subtitle">$32.43</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container">
+					<div class="footer__content">
+						<div class="footer__body">
+							<div class="footer__info">
+								<div class="footer__logo">
+									<img src="./assets/img/logo.svg" alt="Logo">
+								</div>
+								<div class="footer__text text">
+									<p>
+										Lalasia is digital agency that help you make better experience
+              iaculis cras in.
+									</p>
+								</div>
+							</div>
+							<div class="footer__menu menu-footer">
+								<div data-fls-spollers="" class="spollers">
+									<details class="spollers__item">
+										<summary class="spollers__title">Product</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">New Arrivals</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Best Selling</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Home Decor</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Kitchen Set</a>
+											</li>
+										</ul>
+									</details>
+									<details class="spollers__item">
+										<summary class="spollers__title">Services</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Catalog</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Blog</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">FaQ</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Pricing</a>
+											</li>
+										</ul>
+									</details>
+									<details class="spollers__item">
+										<summary class="spollers__title">Follow Us</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Facebook</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Instagram</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Twitter</a>
+											</li>
+										</ul>
+									</details>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

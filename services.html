@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Regular-BF659b6cb1d4714.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Medium-BF659b6cb1c14cb.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/EudoxusSans-Bold-BF659b6cb1408e5.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>Sevices Page</title>
+		<script type="module" crossorigin="" src="./js/services.min.js?v=1755079516873"></script>
+		<link rel="modulepreload" crossorigin="" href="./js/app.min.js?v=1755079516873">
+		<link rel="modulepreload" crossorigin="" href="./js/unimodal.min.js?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/unimodal.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/services.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/join.min.css?v=1755079516873">
+		<link rel="stylesheet" crossorigin="" href="./css/breadcrumbs.min.css?v=1755079516873">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header="" class="header">
+				<div class="header__container">
+					<div class="header__body">
+						<a href="index.html" class="header__link-logo">
+							<img class="header__logo" src="./assets/img/logo.svg" alt="logo">
+						</a>
+						<div class="header__menu menu">
+							<button type="button" data-fls-menu="" class="menu__icon icon-menu" aria-label="Відкрити меню" aria-expanded="false" aria-controls="menu-body">
+								<span></span>
+							</button>
+							<nav class="menu__body" id="menu-body" role="navigation" aria-label="Головне меню">
+								<ul class="menu__list">
+									<li class="menu__item">
+										<a href="/product" class="menu__link">Product</a>
+									</li>
+									<li class="menu__item">
+										<a href="/services" class="menu__link menu__link--active" aria-current="page">Services</a>
+									</li>
+									<li class="menu__item">
+										<a href="/articles" class="menu__link">Articles</a>
+									</li>
+									<li class="menu__item">
+										<a href="/about" class="menu__link">About Us</a>
+									</li>
+									<li class="menu__item menu__item--mobile-actions">
+										<ul class="mobile-actions">
+											<li class="mobile-actions__item" onclick="openCart()" title="Cart">
+												<a href="#" class="mobile-actions__link --icon-cart"></a>
+											</li>
+											<li class="mobile-actions__item" onclick="openProfile()" title="Profile">
+												<a href="#" class="mobile-actions__link --icon-user"></a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<!--
+<fetch url="@components/layout/menu/menu.js?v=1755079516873on">
+<each loop='item in response'>
+</each>
+</fetch>
+-->
+						<ul class="header__actions user-actions header-icons">
+							<li class="user-actions__item" onclick="openCart()" title="Cart">
+								<span class="cart-count" id="cartCount">0</span>
+								<a href="#" class="user-actions__link --icon-cart"></a>
+							</li>
+							<li class="user-actions__item" onclick="openProfile()" title="Profile">
+								<a href="#" class="user-actions__link --icon-user"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+			<!-- Cart Modal -->
+			<div id="cartModal" class="cart-modal">
+				<div class="cart-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Your Cart</h3>
+						<button class="modal-close" onclick="closeCart()" aria-label="Close cart">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="cart-body">
+						<div id="cartItems" class="cart-items"></div>
+						<div class="cart-footer">
+							<div class="cart-total" id="cartTotal">Total: $0</div>
+							<div class="cart-actions">
+								<button class="checkout-btn" onclick="checkout()">
+									<svg width="20" height="20" viewbox="0 0 20 20" fill="none">
+										<path d="M16.25 6.25L8.75 13.75L3.75 8.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+									Proceed to Checkout
+								</button>
+								<button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Profile Modal -->
+			<div id="profileModal" class="profile-modal">
+				<div class="profile-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Profile</h3>
+						<button class="modal-close" onclick="closeProfile()" aria-label="Close profile">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="profile-body">
+						<div class="user-info">
+							<div class="user-avatar">
+								<svg width="48" height="48" viewbox="0 0 24 24" fill="none">
+									<path d="M20 21V19C20 16.8 18.2 15 16 15H8C5.8 15 4 16.8 4 19V21M16 7C16 9.2 14.2 11 12 11S8 9.2 8 7 9.8 3 12 3 16 4.8 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<div class="user-details">
+								<h4>John Doe</h4>
+								<p>john.doe@example.com</p>
+							</div>
+						</div>
+						<ul class="profile-menu">
+							<li onclick="navigateToAccount()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M10 9C12.21 9 14 7.21 14 5S12.21 1 10 1 6 2.79 6 5 7.79 9 10 9ZM10 11C6.67 11 1 12.67 1 16V19H19V16C19 12.67 13.33 11 10 11Z" fill="currentColor"></path>
+								</svg>
+								Personal Account
+							</li>
+							<li onclick="showOrderHistory()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M16 2H4C3.45 2 3 2.45 3 3V17C3 17.55 3.45 18 4 18H16C16.55 18 17 17.55 17 17V3C17 2.45 16.55 2 16 2ZM15 16H5V4H15V16ZM7 6H13V8H7V6ZM7 10H13V12H7V10Z" fill="currentColor"></path>
+								</svg>
+								My Orders
+							</li>
+							<li onclick="showSettings()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M15.95 10.78C15.03 11.95 14.68 13.45 14.95 14.9C14.63 15.05 14.3 15.18 13.95 15.28C13.59 13.87 12.47 12.76 11.06 12.4C10.07 11.42 8.64 11 7.14 11.28C6.32 10.91 5.46 10.7 4.58 10.68C4.58 10.45 4.6 10.23 4.64 10C4.6 9.77 4.58 9.55 4.58 9.32C5.46 9.3 6.32 9.09 7.14 8.72C8.64 9 10.07 8.58 11.06 7.6C12.47 7.24 13.59 6.13 13.95 4.72C14.3 4.82 14.63 4.95 14.95 5.1C14.68 6.55 15.03 8.05 15.95 9.22C16.77 9.59 17.51 10.09 18.14 10.68C17.51 11.27 16.77 11.77 15.95 11.14V10.78ZM10 14C8.9 14 8 13.1 8 12S8.9 10 10 10 12 10.9 12 12 11.1 14 10 14Z" fill="currentColor"></path>
+								</svg>
+								Settings
+							</li>
+							<li onclick="showWishlist()">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M10 17.5L8.95 16.55C4.5 12.6 1.5 9.9 1.5 6.5C1.5 4.24 3.24 2.5 5.5 2.5C6.74 2.5 7.93 3.09 8.71 4H11.29C12.07 3.09 13.26 2.5 14.5 2.5C16.76 2.5 18.5 4.24 18.5 6.5C18.5 9.9 15.5 12.6 11.05 16.55L10 17.5Z" fill="currentColor"></path>
+								</svg>
+								Wishlist
+							</li>
+							<li onclick="logout()" class="logout-item">
+								<svg class="menu-icon" width="20" height="20" viewbox="0 0 20 20" fill="none">
+									<path d="M3 3V17C3 17.55 3.45 18 4 18H9V16H5V4H9V2H4C3.45 2 3 2.45 3 3ZM15.5 9L13.09 6.59L14.5 5.18L19.32 10L14.5 14.82L13.09 13.41L15.5 11H7V9H15.5Z" fill="currentColor"></path>
+								</svg>
+								Log Out
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<section class="page__services services">
+				<div class="services__container">
+					<ul data-fls-breadcrumbs="" class="breadcrumbs">
+						<li class="breadcrumbs__item">
+							<a href="index.html" class="breadcrumbs__link">Homepage</a>
+						</li>
+						<li class="breadcrumbs__item">
+							<a class="breadcrumbs__link">Service</a>
+						</li>
+					</ul>
+					<div class="services__blockhead">
+						<h1 class="main__title">Services</h1>
+						<div class="services__text text">
+							<p>
+								The services crafted by talented crafter and using high quality
+          material with love inside
+							</p>
+						</div>
+					</div>
+					<div class="services__bg">
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/services/services-bg-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/services/services-bg-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/services/services-bg.webp">
+						</picture>
+					</div>
+				</div>
+			</section>
+			<sections class="skills">
+				<div class="skills__container">
+					<h2 class="visually-hidden">Our Skills</h2>
+					<div class="skills__items">
+						<article class="skill">
+							<h3 class="skill__title subtitle">
+								<a class="skill__link-title" href="#">Furniture</a>
+							</h3>
+							<p class="skill__text text">
+								At the ultimate smart home, you're met with technology before you even
+          step through the front door.
+							</p>
+						</article>
+						<article class="skill">
+							<h3 class="skill__title subtitle">
+								<a class="skill__link-title" href="#">Home Decoration</a>
+							</h3>
+							<p class="skill__text text">
+								Create A Calming Summer Escape With Our Luxurious Home Accessories For
+          The Balmy Evenings.
+							</p>
+						</article>
+						<article class="skill">
+							<h3 class="skill__title subtitle">
+								<a class="skill__link-title" href="#">Kitchen Cabinet</a>
+							</h3>
+							<p class="skill__text text">
+								Introducing the modular kitchen cabinet system. Start with our huge
+          selection of base and wall cabinets.
+							</p>
+						</article>
+						<article class="skill">
+							<h3 class="skill__title subtitle">
+								<a class="skill__link-title" href="#">Interior Design</a>
+							</h3>
+							<p class="skill__text text">
+								Innovative products often feature innovative designs that play with
+          the patterns we are familiar.
+							</p>
+						</article>
+						<article class="skill">
+							<h3 class="skill__title subtitle">
+								<a class="skill__link-title" href="#">Exterior Design</a>
+							</h3>
+							<p class="skill__text text">
+								These stylish and resilient products provide up-to-date options for
+          roofing, siding, decking, and outdoor spaces.
+							</p>
+						</article>
+						<article class="skill">
+							<h3 class="skill__title subtitle">
+								<a class="skill__link-title" href="#">Custom Furniture</a>
+							</h3>
+							<p class="skill__text text">
+								With Quality Materials and Modern Designs, we have Designs for all
+          Tastes. we bring you World Class Designs.
+							</p>
+						</article>
+					</div>
+				</div>
+			</sections>
+			<section class="portfolio">
+				<div class="portfolio__container">
+					<div class="portfolio__content fade-in">
+						<div class="portfolio__left slide-left">
+							<span class="title__label portfolio__label">Portfolio</span>
+							<h2 class="portfolio__title title">Amazing project we've done before</h2>
+						</div>
+						<div class="portfolio__right slide-right">
+							<div class="portfolio__text">
+								<p class="text expandable-text collapsed">
+									Take a look at some of our favorite transformations — from cozy
+            bedrooms to inspiring workspaces. Each project reflects our passion
+            for quality, detail, and timeless design.
+								</p>
+							</div>
+							<a class="portfolio-link" href="bedroom.html">View Portfolio</a>
+						</div>
+					</div>
+					<div class="portfolio__articles">
+						<div class="portfolio__articles-left">
+							<div class="portfolio__article fade-in">
+								<div class="portfolio__image-wrapper portfolio__image-wrapper--left">
+									<picture>
+										<img class="portfolio-img" width="505" height="632" loading="lazy" alt="Siska Kohl's Bedroom" src="./assets/img/services/services-portfolio-1.webp">
+									</picture>
+								</div>
+								<div class="article-content">
+									<h3 class="articles-title">Siska Kohl's Bedroom</h3>
+									<p class="text articles-description expandable-text collapsed">
+										We redesigned her bedroom with a clean, minimalist aesthetic —
+              combining soft white tones with warm wood textures. The result is
+              a serene and elegant space that invites rest and relaxation.
+									</p>
+									<a href="#" class="read-more-btn">See Detail</a>
+								</div>
+							</div>
+						</div>
+						<div class="portfolio__articles-right">
+							<div class="portfolio__article fade-in">
+								<div class="portfolio__image-wrapper portfolio__image-wrapper--left">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/services/services-portfolio-2-600.webp" type="image/webp">
+										<img class="portfolio-img" width="705" height="301" loading="lazy" alt="Jeruk Veldevana Living Room Design" src="./assets/img/services/services-portfolio-2.webp">
+									</picture>
+								</div>
+								<div class="article-content">
+									<h3 class="articles-title">Jeruk Veldevana Living Room Design</h3>
+									<p class="text articles-description expandable-text collapsed">
+										This living room makeover blends simplicity with sophistication.
+              Natural wood elements and neutral colors create a welcoming
+              atmosphere that feels both modern and timeless.
+									</p>
+									<a href="#" class="read-more-btn">See Detail</a>
+								</div>
+							</div>
+							<div class="portfolio__article fade-in">
+								<div class="portfolio__image-wrapper">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/services/services-portfolio-3-600.webp" type="image/webp">
+										<img class="portfolio-img" width="705" height="301" loading="lazy" alt="Cozy Co-working space" src="./assets/img/services/services-portfolio-3.webp">
+									</picture>
+								</div>
+								<div class="article-content">
+									<h3 class="articles-title">Cozy Co-working space</h3>
+									<p class="text articles-description expandable-text collapsed">
+										We start renovating this co-working space with minimalist concept
+              and using combination white and wooden material. Perfect
+              environment for productivity and creativity.
+									</p>
+									<a href="#" class="read-more-btn">See Detail</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div data-fls-join="" class="join fade-in">
+				<div class="join__container join-component">
+					<div class="join__title title interest">
+						<h2>Are you interested work with us?</h2>
+					</div>
+					<a data-fls-button="" class="button button--join --icon-arrow-right" href="#" onclick="openModal(event)">Let's Talk</a>
+				</div>
+			</div>
+			<div data-fls-unimodal="" class="modal-overlay" id="modalOverlay" hidden onclick="closeModal(event)">
+				<div class="modal">
+					<div class="modal-header">
+						<h3 id="modalTitle">Get in Touch</h3>
+						<p id="modalSubtitle">We'd love to help you</p>
+						<button class="modal-close" onclick="closeModal()">&times;</button>
+					</div>
+					<div class="modal-body">
+						<form id="contactForm">
+							<div class="form-group">
+								<label for="name">Name *</label>
+								<input type="text" id="name" name="name" required>
+							</div>
+							<div class="form-group">
+								<label for="email">Email *</label>
+								<input type="email" id="email" name="email" required>
+							</div>
+							<div class="form-group">
+								<label for="phone">Phone</label>
+								<input type="tel" id="phone" name="phone">
+							</div>
+							<div class="form-group" id="messageGroup">
+								<label for="message">Message</label>
+								<textarea id="message" name="message" placeholder="Tell us more about your needs..."></textarea>
+							</div>
+							<div class="modal-actions">
+								<button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+								<button type="submit" class="btn btn-primary" id="submitBtn">Send</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<script></script>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container">
+					<div class="footer__content">
+						<div class="footer__body">
+							<div class="footer__info">
+								<div class="footer__logo">
+									<img src="./assets/img/logo.svg" alt="Logo">
+								</div>
+								<div class="footer__text text">
+									<p>
+										Lalasia is digital agency that help you make better experience
+              iaculis cras in.
+									</p>
+								</div>
+							</div>
+							<div class="footer__menu menu-footer">
+								<div data-fls-spollers="" class="spollers">
+									<details class="spollers__item">
+										<summary class="spollers__title">Product</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">New Arrivals</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Best Selling</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Home Decor</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Kitchen Set</a>
+											</li>
+										</ul>
+									</details>
+									<details class="spollers__item">
+										<summary class="spollers__title">Services</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Catalog</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Blog</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">FaQ</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Pricing</a>
+											</li>
+										</ul>
+									</details>
+									<details class="spollers__item">
+										<summary class="spollers__title">Follow Us</summary>
+										<ul class="spollers__body spollers__body-list text">
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Facebook</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Instagram</a>
+											</li>
+											<li class="spollers__body__item">
+												<a href="#" class="spollers__body-link">Twitter</a>
+											</li>
+										</ul>
+									</details>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>
